@@ -1,9 +1,17 @@
 (function() {
-  var choose_row, fill_checkboxes, get_kana, hiragana, hiraganaMenu, kana, katakana, katakanaMenu, menuButton, romaji, sounds, write_kana;
+  var choose_row, chosen_h, chosen_k, get_kana, hiragana, hiraganaMenu, kana, katakana, katakanaMenu, menuButton, refresh, romaji, sounds, write_kana;
 
   kana = $("#kana");
 
   romaji = $("#romaji");
+
+  refresh = $('.glyphicon-refresh');
+
+  chosen_h = [0];
+
+  chosen_k = [0];
+
+  console.log(chosen_h);
 
   hiragana = [[[1], ["あ"], ["い"], ["う"], ["え"], ["お"]], [[2], ["か"], ["き"], ["く"], ["け"], ["こ"]], [[3], ["が"], ["ぎ"], ["ぐ"], ["げ"], ["ご"]], [[4], ["さ"], ["し"], ["す"], ["せ"], ["そ"]], [[5], ["ざ"], ["じ"], ["ず"], ["ぜ"], ["ぞ"]], [[6], ["た"], ["ち"], ["つ"], ["て"], ["と"]], [[7], ["だ"], ["ぢ"], ["づ"], ["で"], ["ど"]], [[8], ["な"], ["に"], ["ぬ"], ["ね"], ["の"]], [[9], ["は"], ["ひ"], ["ふ"], ["へ"], ["ほ"]], [[10], ["ば"], ["び"], ["ぶ"], ["べ"], ["ぼ"]], [[11], ["ぱ"], ["ぴ"], ["ぷ"], ["ぺ"], ["ぽ"]], [[12], ["ま"], ["み"], ["む"], ["め"], ["も"]], [[13], ["や"], [""], ["ゆ"], [""], ["よ"]], [[14], ["ら"], ["り"], ["る"], ["れ"], ["ろ"]], [[15], ["わ"], ["ゐ"], [""], ["ゑ"], ["を"]], [[16], ["ん"], [""], [""], [""], [""]]];
 
@@ -17,15 +25,18 @@
 
   menuButton = $("#off-canvas-menu");
 
-  fill_checkboxes = function() {
-    var x;
-    x = 0;
-    while (x < 16) {
-      hiraganaMenu.append("<div class='checkbox'><label class='sound'>" + sounds[x][1] + "</label><label><input type='checkbox' value='" + x + "'></label>" + hiragana[x][1] + hiragana[x][2] + hiragana[x][3] + hiragana[x][4] + hiragana[x][5] + "</div>");
-      katakanaMenu.append("<div class='checkbox'><label><input type='checkbox' value='" + x + "'></label>" + katakana[x][1] + katakana[x][2] + katakana[x][3] + katakana[x][4] + katakana[x][5] + "</div>");
-      x++;
+  $('.hiragana-check').on("change", function() {
+    if ($(this).is(':checked')) {
+      console.log($(this).attr('value'));
+      chosen_h.push($(this).attr('value'));
     }
-  };
+  });
+
+  $('.katakana-check').on("change", function() {
+    if ($(this).is(':checked')) {
+      console.log($(this).attr('value'));
+    }
+  });
 
   choose_row = function(r) {
     var rows_count;
@@ -35,21 +46,26 @@
   };
 
   get_kana = function(h, k) {
-    console.log("h = " + h + " k = " + k[0]);
-    if (h[0] !== 99 && k[0] !== 99) {
+    console.log("h = " + h + " k = " + k);
+    if (h[0][0] !== 99 && k[0][0] !== 99) {
       this.hk = Math.floor(Math.random() * 2);
-      console.log("here");
+      console.log(h[0][0] + " isnt 99 and " + k[0][0] + "isnt 99");
       if (hk === 0) {
-        console.log("Hiragana Row " + choose_row(h));
+        choose_row(h);
+        console.log("a");
       } else {
-        console.log("Katakana Row " + choose_row(k));
+        choose_row(k);
+        console.log("b");
       }
-    } else if (h[0] !== 99 && k[0] === 99) {
+    } else if (h[0][0] !== 99 && k[0][0] === 99) {
       this.hk = 0;
-      console.log("Hiragana Row " + choose_row(h));
-    } else if (h[0] === 99 && k[0] !== 99) {
+      choose_row(h[0]);
+      console.log("c");
+    } else if (h[0][0] === 99 && k[0][0] !== 99) {
       this.hk = 1;
-      console.log("Katakana Row " + choose_row(k));
+      choose_row(k);
+      console.log("d");
+      console.log("h " + h[0] + " k " + k[0]);
     }
     this.j = Math.floor((Math.random() * 5) + 1);
     console.log("Column " + this.j);
@@ -63,18 +79,16 @@
       kana.html(hiragana[this.i][this.j]);
     } else if (this.hk === 0 && hiragana[this.i][this.j] === '') {
       kana.html(hiragana[this.i - 3][this.j]);
-    } else if (this.hk === 1 && katakna[this.i][this.j] !== '') {
+    } else if (this.hk === 1 && katakana[this.i][this.j] !== '') {
       kana.html(katakana[this.i][this.j]);
     } else {
       kana.html(katakana[this.i - 3][this.j]);
     }
-    romaji.append(sounds[this.i][this.j] + " ");
+    romaji.html(sounds[this.i][this.j] + " ");
     console.log("row [" + this.i + "], col [" + this.j + "]");
   };
 
-  write_kana([1, 2, 3, 4], [99]);
-
-  fill_checkboxes();
+  write_kana([chosen_h], [chosen_k]);
 
   menuButton.on("show.bs.collapse", function() {
     $("#off-canvas-button").css("right", "320px");
@@ -84,6 +98,10 @@
   menuButton.on("hide.bs.collapse", function() {
     $("#off-canvas-button").css("right", "0");
     $(".sidebar-offcanvas").css("background-color", "#000");
+  });
+
+  refresh.on("click", function() {
+    return write_kana([chosen_h], [chosen_k]);
   });
 
 }).call(this);

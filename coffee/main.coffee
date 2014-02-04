@@ -5,6 +5,15 @@
 
 kana = $("#kana")
 romaji = $("#romaji")
+refresh = $('.glyphicon-refresh')
+
+chosen_h = [
+	0
+	]
+chosen_k = [
+	0
+	]
+console.log chosen_h
 hiragana = [
   [
     [1]
@@ -398,13 +407,18 @@ sounds = [
 hiraganaMenu = $("#hiragana-checkboxes")
 katakanaMenu = $("#katakana-checkboxes")
 menuButton = $("#off-canvas-menu")
-fill_checkboxes = ->
-  x = 0
-  while x < 16
-    hiraganaMenu.append "<div class='checkbox'><label class='sound'>"+ sounds[x][1] + "</label><label><input type='checkbox' value='" + x + "'></label>" + hiragana[x][1] + hiragana[x][2] + hiragana[x][3] + hiragana[x][4] + hiragana[x][5] + "</div>"
-    katakanaMenu.append "<div class='checkbox'><label><input type='checkbox' value='" + x + "'></label>" + katakana[x][1] + katakana[x][2] + katakana[x][3] + katakana[x][4] + katakana[x][5] + "</div>"
-    x++
-  return
+
+
+$('.hiragana-check').on "change", ->
+  if $(this).is(':checked')
+    console.log $(this).attr('value')
+    chosen_h.push $(this).attr('value')
+    return
+
+$('.katakana-check').on "change", ->
+  if $(this).is(':checked')
+    console.log $(this).attr('value')
+    return
 
 choose_row = (r) -> # r is array with all rows
   rows_count = r.length
@@ -412,20 +426,27 @@ choose_row = (r) -> # r is array with all rows
   r[@i]
 
 get_kana = (h, k) -> #check if not empty - only show rows user wants to learn. (99 = empty)
-  console.log("h = " + h + " k = " + k[0])
-  if h[0] isnt 99 and k[0] isnt 99 # are both values set?
+  console.log("h = " + h + " k = " + k)
+  
+  if h[0][0] isnt 99 and k[0][0] isnt 99 # are both values set?
+	
     @hk = Math.floor((Math.random() * 2)) # 0 = Hiragana, 1 = Katakana
-    console.log ("here")
+    console.log h[0][0] + " isnt 99 and " + k[0][0] + "isnt 99"
     if hk is 0 # if Hiragana -> choose i from 1 - h.length-1
-      console.log "Hiragana Row " + choose_row(h)
+      choose_row(h)
+      console.log("a")
     else # if Katakana -> choose i from 1 - k.length-1
-      console.log "Katakana Row " + choose_row(k)
-  else if h[0] isnt 99 and k[0] is 99 # only h set so only choose Hiragana
+      choose_row(k)
+      console.log("b")
+  else if h[0][0] isnt 99 and k[0][0] is 99 # only h set so only choose Hiragana
     @hk = 0
-    console.log "Hiragana Row " + choose_row(h)
-  else if h[0] is 99 and k[0] isnt 99  # only k set so only choose Katakana
+    choose_row(h[0])
+    console.log("c")
+  else if h[0][0] is 99 and k[0][0] isnt 99  # only k set so only choose Katakana
     @hk = 1
-    console.log "Katakana Row " + choose_row(k)
+    choose_row(k)
+    console.log("d")
+    console.log "h " + h[0] + " k " + k[0] 
   
   # get a possible i from h or a possible i from k
   # h.length, k.length
@@ -438,30 +459,29 @@ get_kana = (h, k) -> #check if not empty - only show rows user wants to learn. (
   @j
 
 write_kana = (h, k) -> #h = Hiragana-rows, k = Katakana-rows
+  #console.log "h = " + h + " k = " + k
   get_kana h, k # h could be for example [1,3,7]. Therefor i can only be 1,3 or 7
   if @hk is 0 and hiragana[@i][@j] != ''
     kana.html hiragana[@i][@j]
   else if @hk is 0 and hiragana[@i][@j] == ''
 	  kana.html hiragana[@i-3][@j]
-  else if @hk is 1 and katakna[@i][@j] != ''
+  else if @hk is 1 and katakana[@i][@j] != ''
     kana.html katakana[@i][@j]
   else 
     kana.html katakana[@i-3][@j]
-  romaji.append sounds[@i][@j] + " "#TODO: write only one correct and 4 false. the correct must be clicked
+  romaji.html sounds[@i][@j] + " "#TODO: write only one correct and 4 false. the correct must be clicked
 
   #console.log(h,k);
   console.log "row [" + @i + "], col [" + @j + "]"
   return
 
-write_kana [ #make this dynamic to chosen rows
-  1
-  2
-  3
-  4
-], [
-  99
-]
-fill_checkboxes()
+
+write_kana	[ #make this dynamic to chosen rows
+	  chosen_h
+	], [
+	  chosen_k
+	]
+
 menuButton.on "show.bs.collapse", ->
   $("#off-canvas-button").css "right", "320px"
   $(".sidebar-offcanvas").css "background-color", "transparent"
@@ -471,3 +491,10 @@ menuButton.on "hide.bs.collapse", ->
   $("#off-canvas-button").css "right", "0"
   $(".sidebar-offcanvas").css "background-color", "#000"
   return
+
+refresh.on "click", ->
+	write_kana [ #make this dynamic to chosen rows
+	  chosen_h
+	], [
+	  chosen_k
+	]
