@@ -60,6 +60,7 @@ var sounds = [
 
 var hiraganaMenu = $('#hiragana-checkboxes');
 var katakanaMenu = $('#katakana-checkboxes');
+var menuButton = $('#off-canvas-menu');
 
 var fill_checkboxes = function() {
 	for (x = 0; x<16; x++) {
@@ -120,6 +121,14 @@ var write_kana = function(h,k) { //h = Hiragana-rows, k = Katakana-rows
     console.log("row [" + this.i + "], col [" + this.j + "]");
 };
 
-
 write_kana([1,2,3,9],[1,2,3]); //make this dynamic to chosen rows
 fill_checkboxes();
+
+menuButton.on('show.bs.collapse', function () {
+	$('#off-canvas-button').css('right', '320px');
+	$('.sidebar-offcanvas').css('background-color', 'transparent');
+});
+menuButton.on('hide.bs.collapse', function () {
+	$('#off-canvas-button').css('right', '0');
+	$('.sidebar-offcanvas').css('background-color', '#000');
+});

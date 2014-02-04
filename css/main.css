@@ -28,7 +28,19 @@ body{
 .sidebar-offcanvas {
 	position: absolute;
 	top: 0;
-	right: 0;	
+	right: 0;
+	width: 50px;	
+}
+#off-canvas-button {
+	z-index: 9999;
+}
+#off-canvas-button .btn{
+	background-color: #000;
+	border-color: #333;
+}
+.glyphicon-th{
+	color: #fff;
+	font-size: 20px;
 }
 #off-canvas-menu {
 	position: absolute;
@@ -53,20 +65,20 @@ body{
   position: relative;
   height: 0;
   overflow: hidden;
-  -webkit-transition: height 9s ease;
-  -moz-transition: height 9s ease;
-  -o-transition: height 9s ease;
-  transition: height 9s ease;
+  -webkit-transition: height 0.35s ease;
+  -moz-transition: height 0.35s ease;
+  -o-transition: height 0.35s ease;
+  transition: height 0.35s ease;
 }
  
 #off-canvas-menu .collapse.width {
   position: relative;
   width: 50px;
   overflow: hidden;
-  -webkit-transition: width 9s ease;
-  -moz-transition: width 9s ease;
-  -o-transition: width 9s ease;
-  transition: width 9s ease;
+  -webkit-transition: width 0.35s ease;
+  -moz-transition: width 0.35s ease;
+  -o-transition: width 0.35s ease;
+  transition: width 0.35s ease;
 }
  
 #off-canvas-menu .collapse.in.width {
