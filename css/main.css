@@ -1,0 +1,90 @@
+html{
+
+}
+body{
+	background:url('../images/1.jpg') no-repeat center center;
+    min-height:100%;
+    background-size:cover;
+    min-height:100%;
+}
+#show {
+	margin-top: 100px;
+	padding: 70px 0;
+	background-color: #000;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	opacity: 0.75;
+}
+#kana, #romaji {
+	color: #fff;
+	text-align: center;
+}
+#kana {
+	font-size: 100px;
+}
+#romaji {
+	font-size: 30px;
+}
+.sidebar-offcanvas {
+	position: absolute;
+	top: 0;
+	right: 0;	
+}
+#off-canvas-menu {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: #000;
+	padding-left: 50px;
+	opacity: 0.8;
+	color: #fff;
+}
+#off-canvas-menu {
+  height:100%;
+}
+ 
+#off-canvas-menu {
+  float:left;
+  height: 100% !important;
+  width: auto;
+}
+ 
+#off-canvas-menu .collapse.height {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: height 9s ease;
+  -moz-transition: height 9s ease;
+  -o-transition: height 9s ease;
+  transition: height 9s ease;
+}
+ 
+#off-canvas-menu .collapse.width {
+  position: relative;
+  width: 50px;
+  overflow: hidden;
+  -webkit-transition: width 9s ease;
+  -moz-transition: width 9s ease;
+  -o-transition: width 9s ease;
+  transition: width 9s ease;
+}
+ 
+#off-canvas-menu .collapse.in.width {
+  width: auto;
+}
+ 
+#off-canvas-menu .collapse.in.height {
+  height: auto;
+}
+ 
+#off-canvas-menu .collapse-inner {
+  position: relative;
+  width: 250px;
+  height: 100%;
+}
+.kana-form {
+	float: left;
+}
+h3.off-canvas-menu {
+	font-size: 19px;
+}
