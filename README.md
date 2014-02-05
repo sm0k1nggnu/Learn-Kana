@@ -1,4 +1,6 @@
 kana
 ====
 
-Hiragana &amp; Katakana learning quiz
+Hiragana &amp; Katakana learning page
+
+see online demo at http://learnkana.herokuapp.com/
