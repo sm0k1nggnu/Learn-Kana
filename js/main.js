@@ -22,10 +22,6 @@ while (h < 16) {
   h++;
 }
 
-console.log(chosen_h);
-
-console.log(chosen_k);
-
 hiragana = [[[1], ["あ"], ["い"], ["う"], ["え"], ["お"]], [[2], ["か"], ["き"], ["く"], ["け"], ["こ"]], [[3], ["が"], ["ぎ"], ["ぐ"], ["げ"], ["ご"]], [[4], ["さ"], ["し"], ["す"], ["せ"], ["そ"]], [[5], ["ざ"], ["じ"], ["ず"], ["ぜ"], ["ぞ"]], [[6], ["た"], ["ち"], ["つ"], ["て"], ["と"]], [[7], ["だ"], ["ぢ"], ["づ"], ["で"], ["ど"]], [[8], ["な"], ["に"], ["ぬ"], ["ね"], ["の"]], [[9], ["は"], ["ひ"], ["ふ"], ["へ"], ["ほ"]], [[10], ["ば"], ["び"], ["ぶ"], ["べ"], ["ぼ"]], [[11], ["ぱ"], ["ぴ"], ["ぷ"], ["ぺ"], ["ぽ"]], [[12], ["ま"], ["み"], ["む"], ["め"], ["も"]], [[13], ["や"], [""], ["ゆ"], [""], ["よ"]], [[14], ["ら"], ["り"], ["る"], ["れ"], ["ろ"]], [[15], ["わ"], [""], [""], ["ゑ"], ["を"]], [[16], ["ん"], [""], [""], [""], [""]]];
 
 katakana = [[[1], ["ア"], ["イ"], ["ウ"], ["エ"], ["オ"]], [[2], ["カ"], ["キ"], ["ク"], ["ケ"], ["コ"]], [[3], ["ガ"], ["ギ"], ["グ"], ["ゲ"], ["ゴ"]], [[4], ["サ"], ["シ"], ["ス"], ["セ"], ["ソ"]], [[5], ["ザ"], ["ジ"], ["ズ"], ["ゼ"], ["ゾ"]], [[6], ["タ"], ["チ"], ["ツ"], ["テ"], ["ト"]], [[7], ["ダ"], ["ヂ"], ["ヅ"], ["デ"], ["ドゾ"]], [[8], ["ナ"], ["ニ"], ["ヌ"], ["ネ"], ["ノ"]], [[9], ["ハ"], ["ヒ"], ["フ"], ["ヘ"], ["ホ"]], [[10], ["バ"], ["ビ"], ["ブ"], ["ベ"], ["ボ"]], [[11], ["パ"], ["ピ"], ["プ"], ["ペ"], ["ポ"]], [[12], ["マ"], ["ミ"], ["ム"], ["メ"], ["モ"]], [[13], ["ヤ"], [""], ["ユ"], [""], ["ヨ"]], [[14], ["ラ"], ["リ"], ["ル"], ["レ"], ["ロ"]], [[15], ["ワ"], [""], [""], [""], ["ヲ"]], [[16], ["ン"], [""], [""], [""], [""]]];
@@ -42,11 +38,9 @@ $('.hiragana-check').on("change", function() {
   var h_i;
   h_i = $(this).attr('value');
   if ($(this).is(':checked')) {
-    chosen_h[h_i] = 1;
-    return console.log(chosen_h);
+    return chosen_h[h_i] = 1;
   } else {
     chosen_h[h_i] = 0;
-    console.log(chosen_h);
   }
 });
 
@@ -54,11 +48,9 @@ $('.katakana-check').on("change", function() {
   var k_i;
   k_i = $(this).attr('value');
   if ($(this).is(':checked')) {
-    chosen_k[k_i] = 1;
-    return console.log(chosen_k);
+    return chosen_k[k_i] = 1;
   } else {
     chosen_k[k_i] = 0;
-    console.log(chosen_k);
   }
 });
 
@@ -73,7 +65,6 @@ selected_rows = function(kana_arr, t) {
     }
     i++;
   }
-  console.log("selected rows " + t + " " + result);
   return result;
 };
 
@@ -119,30 +110,23 @@ get_kana = function(h, k) {
     this.hk = Math.floor(Math.random() * 2);
     if (hk === 0) {
       this.i = choose_row("h");
-      console.log(choose_row("h"));
     } else {
       this.i = choose_row("k");
-      console.log(choose_row("k"));
     }
   } else if (hira && !kata) {
     this.hk = 0;
     this.i = choose_row("h");
-    console.log(choose_row("h"));
   } else if (kata && !hira) {
     this.hk = 1;
     this.i = choose_row("k");
-    console.log(choose_row("k"));
   }
   this.j = Math.floor((Math.random() * 5) + 1);
-  console.log("Column " + this.j);
   return this.i;
   return this.j;
 };
 
 write_kana = function(h, k) {
   get_kana(h, k);
-  console.log("i is " + this.i);
-  console.log("j is " + this.j);
   if (this.hk === 0 && hiragana[this.i][this.j] !== '') {
     kana.html(hiragana[this.i][this.j]);
   } else if (this.hk === 0 && hiragana[this.i][this.j] === '') {
@@ -153,7 +137,6 @@ write_kana = function(h, k) {
     kana.html(katakana[this.i - 3][this.j]);
   }
   romaji.html(sounds[this.i][this.j] + " ");
-  console.log("row [" + this.i + "], col [" + this.j + "]");
 };
 
 menuButton.on("show.bs.collapse", function() {

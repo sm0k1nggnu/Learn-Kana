@@ -19,9 +19,7 @@ while h < 16
   chosen_h[h] = 0
   chosen_k[h] = 0
   h++
-
-console.log chosen_h
-console.log chosen_k	
+	
 hiragana = [
   [
     [1]
@@ -421,20 +419,16 @@ $('.hiragana-check').on "change", ->
   h_i = $(this).attr('value')
   if $(this).is(':checked')
     chosen_h[h_i] = 1
-    console.log chosen_h
   else
     chosen_h[h_i] = 0
-    console.log chosen_h
     return
 
 $('.katakana-check').on "change", ->
   k_i = $(this).attr('value')
   if $(this).is(':checked')
     chosen_k[k_i] = 1
-    console.log chosen_k
   else
     chosen_k[k_i] = 0
-    console.log chosen_k
     return
 
 #find rows that are not empty
@@ -447,7 +441,6 @@ selected_rows = (kana_arr, t) ->
 	    result.push i
 	    #break
 	  i++
-	console.log "selected rows " + t + " " + result
 	return result
 	
 
@@ -498,18 +491,14 @@ get_kana = (h, k) ->
     @hk = Math.floor((Math.random() * 2)) # 0 = Hiragana, 1 = Katakana
     if hk is 0 # if Hiragana -> choose i from 1 - h.length-1
       @i = choose_row("h")
-      console.log choose_row("h")
     else # if Katakana -> choose i from 1 - k.length-1
       @i = choose_row("k")
-      console.log choose_row("k")
   else if hira and !kata # only h set so only choose Hiragana
     @hk = 0
     @i =  choose_row("h")
-    console.log choose_row("h")
   else if kata and !hira  # only k set so only choose Katakana
     @hk = 1
     @i =  choose_row("k")
-    console.log choose_row("k")
   
   # get a possible i from h or a possible i from k
   # h.length, k.length
@@ -517,7 +506,6 @@ get_kana = (h, k) ->
   # choose i from 1 - h.length-1 oder 1 - k.length-1 
   #i = Math.floor((Math.random()*16)); //rows
   @j = Math.floor((Math.random() * 5) + 1) #columns
-  console.log "Column " + @j
   return @i
   @j
 
@@ -526,8 +514,6 @@ get_kana = (h, k) ->
 write_kana = (h, k) -> 
   #get_kana gets one kana, either Hiragana or Katakana from specified rows
   get_kana h, k
-  console.log "i is " + @i
-  console.log "j is " + @j
   if @hk is 0 and hiragana[@i][@j] != ''
     kana.html hiragana[@i][@j]
   else if @hk is 0 and hiragana[@i][@j] == ''
@@ -539,7 +525,6 @@ write_kana = (h, k) ->
   romaji.html sounds[@i][@j] + " "#TODO: write only one correct and 4 false. the correct must be clicked
 
   #console.log(h,k);
-  console.log "row [" + @i + "], col [" + @j + "]"
   return
 
 menuButton.on "show.bs.collapse", ->
