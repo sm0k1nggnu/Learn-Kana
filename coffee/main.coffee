@@ -1,4 +1,5 @@
-#TODO: show only kana from checked rows
+#author: David May - @sm0k1nggnu
+
 #TODO: show kana only for x amount of time, then fail
 #TODO: build points-system. x/y kana correct
 #TODO: show 5 kana under kana to choose from. 4 random, 1 correct
@@ -7,13 +8,20 @@ kana = $("#kana")
 romaji = $("#romaji")
 refresh = $('.glyphicon-refresh')
 
-chosen_h = [
-	0
-	]
-chosen_k = [
-	0
-	]
+chosen_h = []
+chosen_k = []
+
+chosen_h[0] = 1
+chosen_k[0] = 1
+
+h = 1
+while h < 16
+  chosen_h[h] = 0
+  chosen_k[h] = 0
+  h++
+
 console.log chosen_h
+console.log chosen_k	
 hiragana = [
   [
     [1]
@@ -130,7 +138,7 @@ hiragana = [
   [
     [15]
     ["わ"]
-    ["ゐ"]
+    [""]
     [""]
     ["ゑ"]
     ["を"]
@@ -410,43 +418,98 @@ menuButton = $("#off-canvas-menu")
 
 
 $('.hiragana-check').on "change", ->
+  h_i = $(this).attr('value')
   if $(this).is(':checked')
-    console.log $(this).attr('value')
-    chosen_h.push $(this).attr('value')
+    chosen_h[h_i] = 1
+    console.log chosen_h
+  else
+    chosen_h[h_i] = 0
+    console.log chosen_h
     return
 
 $('.katakana-check').on "change", ->
+  k_i = $(this).attr('value')
   if $(this).is(':checked')
-    console.log $(this).attr('value')
+    chosen_k[k_i] = 1
+    console.log chosen_k
+  else
+    chosen_k[k_i] = 0
+    console.log chosen_k
     return
 
-choose_row = (r) -> # r is array with all rows
-  rows_count = r.length
-  @i = Math.floor((Math.random() * rows_count)) #random Array-entry
-  r[@i]
-
-get_kana = (h, k) -> #check if not empty - only show rows user wants to learn. (99 = empty)
-  console.log("h = " + h + " k = " + k)
-  
-  if h[0][0] isnt 99 and k[0][0] isnt 99 # are both values set?
+#find rows that are not empty
+selected_rows = (kana_arr, t) ->
+	result = []
+	i = 0
+	len = 16
+	while i < len 
+	  if kana_arr[i] is 1
+	    result.push i
+	    #break
+	  i++
+	console.log "selected rows " + t + " " + result
+	return result
 	
+
+#find all checked rows, return one of them randomly
+choose_row = (kana) ->
+  if kana is "h"
+    h = selected_rows(chosen_h, "hiragana")
+    chosen_row = h[Math.floor(Math.random() * h.length)]
+    return chosen_row
+  else
+    k = selected_rows(chosen_k, "katakana")
+    chosen_row = k[Math.floor(Math.random() * k.length)]
+    return chosen_row
+  return
+  #@i = Math.floor((Math.random() * rows_count)) #random Array-entry
+	
+#get_kana gets one kana, either Hiragana or Katakana from specified rows
+#takes 2 arrays as argument, h for Hiragana, k for Katakana
+#checks which rows have been selected (1)
+get_kana = (h, k) ->
+  #are both Hiragana and Katakana set? Random variable @hk defines which one to take
+  result = undefined
+  hira = false
+  kata = false
+  i = 0
+  j = 0
+  len = 16
+  while i < len 
+    if chosen_h[i] is 1
+      result = chosen_h[i]
+      hira = true
+      #console.log "Treffer in h an Position" + i
+      #break
+    i++
+  while j < len 
+    if chosen_k[j] is 1
+      result = chosen_k[j]
+      kata = true
+      #console.log "Treffer in k an Position" + j
+      #break
+    else
+      #console.log "Pups"
+    j++
+  
+
+  console.log "hira " + hira + "kata " + kata
+  if hira and kata # are both values set?	
     @hk = Math.floor((Math.random() * 2)) # 0 = Hiragana, 1 = Katakana
-    console.log h[0][0] + " isnt 99 and " + k[0][0] + "isnt 99"
     if hk is 0 # if Hiragana -> choose i from 1 - h.length-1
-      choose_row(h)
-      console.log("a")
+      @i = choose_row("h")
+      console.log choose_row("h")
     else # if Katakana -> choose i from 1 - k.length-1
-      choose_row(k)
-      console.log("b")
-  else if h[0][0] isnt 99 and k[0][0] is 99 # only h set so only choose Hiragana
+      @i = choose_row("k")
+      console.log choose_row("k")
+  else if hira and !kata # only h set so only choose Hiragana
     @hk = 0
-    choose_row(h[0])
-    console.log("c")
-  else if h[0][0] is 99 and k[0][0] isnt 99  # only k set so only choose Katakana
+    @i =  choose_row("h")
+    console.log choose_row("h")
+  else if kata and !hira  # only k set so only choose Katakana
     @hk = 1
-    choose_row(k)
-    console.log("d")
-    console.log "h " + h[0] + " k " + k[0] 
+    @i =  choose_row("k")
+    console.log choose_row("k")
   
   # get a possible i from h or a possible i from k
   # h.length, k.length
@@ -458,9 +521,13 @@ get_kana = (h, k) -> #check if not empty - only show rows user wants to learn. (
   return @i
   @j
 
-write_kana = (h, k) -> #h = Hiragana-rows, k = Katakana-rows
-  #console.log "h = " + h + " k = " + k
-  get_kana h, k # h could be for example [1,3,7]. Therefor i can only be 1,3 or 7
+#write kana from chosen rows into html
+#function takes 2 arrays as argument, arrays are chosen rows
+write_kana = (h, k) -> 
+  #get_kana gets one kana, either Hiragana or Katakana from specified rows
+  get_kana h, k
+  console.log "i is " + @i
+  console.log "j is " + @j
   if @hk is 0 and hiragana[@i][@j] != ''
     kana.html hiragana[@i][@j]
   else if @hk is 0 and hiragana[@i][@j] == ''
@@ -475,13 +542,6 @@ write_kana = (h, k) -> #h = Hiragana-rows, k = Katakana-rows
   console.log "row [" + @i + "], col [" + @j + "]"
   return
 
-
-write_kana	[ #make this dynamic to chosen rows
-	  chosen_h
-	], [
-	  chosen_k
-	]
-
 menuButton.on "show.bs.collapse", ->
   $("#off-canvas-button").css "right", "320px"
   $(".sidebar-offcanvas").css "background-color", "transparent"
@@ -492,6 +552,12 @@ menuButton.on "hide.bs.collapse", ->
   $(".sidebar-offcanvas").css "background-color", "#000"
   return
 
+write_kana	[ #initial
+	  chosen_h
+	], [
+	  chosen_k
+	]
+	
 refresh.on "click", ->
 	write_kana [ #make this dynamic to chosen rows
 	  chosen_h
