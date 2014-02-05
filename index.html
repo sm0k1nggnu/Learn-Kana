@@ -18,11 +18,30 @@
     <![endif]-->
   </head>
   <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=110257969122074";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    
     <div class="row">
       <div class="col-md-1 col-md-offset-1">
         <div class="refresh-bg">
           <i class="glyphicon glyphicon-refresh spin"></i>
         </div>
+      </div>
+      <div class="col-md-1">
+        <script id='fbp0pn6'>(function(i){var f,s=document.getElementById(i);f=document.createElement('iframe');f.src='//api.flattr.com/button/view/?uid=Sm0K1ngGnu&url=http%3A%2F%2Flearnkana.herokuapp.com';f.title='Flattr';f.height=62;f.width=55;f.style.borderWidth=0;s.parentNode.insertBefore(f,s);})('fbp0pn6');</script>
+      </div>
+      <div class="col-md-1">
+        <div class="fb-like" data-href="http://learnkana.herokuapp.com" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
+      </div>
+      <div class="col-md-1">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="learn hiragana and katakana" data-via="sm0k1nggnu">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
       </div>
     </div>
     
@@ -54,6 +73,11 @@
           
         </div>
       </div>
+    </div>
+    
+    <div class="footer">
+      made by David May (<a href="http://twitter.com/sm0k1nggnu">@sm0k1nggnu)</a><br>
+      picture by <a href="http://www.flickr.com/photos/yotut/">YoTuT</a>, some rights reserved
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
