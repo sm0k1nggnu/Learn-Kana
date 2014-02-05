@@ -120,9 +120,7 @@ hiragana = [
   [
     [13]
     ["や"]
-    [""]
     ["ゆ"]
-    [""]
     ["よ"]
   ]
   [
@@ -136,18 +134,11 @@ hiragana = [
   [
     [15]
     ["わ"]
-    [""]
-    [""]
-    ["ゑ"]
     ["を"]
   ]
   [
     [16]
     ["ん"]
-    [""]
-    [""]
-    [""]
-    [""]
   ]
 ]
 katakana = [
@@ -250,9 +241,7 @@ katakana = [
   [
     [13]
     ["ヤ"]
-    [""]
     ["ユ"]
-    [""]
     ["ヨ"]
   ]
   [
@@ -266,18 +255,11 @@ katakana = [
   [
     [15]
     ["ワ"]
-    [""]
-    [""]
-    [""]
     ["ヲ"]
   ]
   [
     [16]
     ["ン"]
-    [""]
-    [""]
-    [""]
-    [""]
   ]
 ]
 sounds = [
@@ -380,9 +362,7 @@ sounds = [
   [
     [13]
     ["ya"]
-    [""]
     ["yu"]
-    [""]
     ["yo"]
   ]
   [
@@ -396,18 +376,11 @@ sounds = [
   [
     [15]
     ["wa"]
-    [""]
-    [""]
-    [""]
     ["o/wo"]
   ]
   [
     [16]
     ["n"]
-    [""]
-    [""]
-    [""]
-    [""]
   ]
 ]
 hiraganaMenu = $("#hiragana-checkboxes")
@@ -485,8 +458,6 @@ get_kana = (h, k) ->
       #console.log "Pups"
     j++
   
-
-  console.log "hira " + hira + "kata " + kata
   if hira and kata # are both values set?	
     @hk = Math.floor((Math.random() * 2)) # 0 = Hiragana, 1 = Katakana
     if hk is 0 # if Hiragana -> choose i from 1 - h.length-1
@@ -514,14 +485,18 @@ get_kana = (h, k) ->
 write_kana = (h, k) -> 
   #get_kana gets one kana, either Hiragana or Katakana from specified rows
   get_kana h, k
-  if @hk is 0 and hiragana[@i][@j] != ''
+  console.log "i = " + @i + " j = " + @j
+  if @hk is 0 and hiragana[@i][@j] != undefined #this check doesn't work
     kana.html hiragana[@i][@j]
-  else if @hk is 0 and hiragana[@i][@j] == ''
-	  kana.html hiragana[@i-3][@j]
-  else if @hk is 1 and katakana[@i][@j] != ''
+    console.log hiragana[@i][@j]  + " here"
+  else if @hk is 0 and hiragana[@i][@j] == undefined
+	  @j = 1
+	  kana.html hiragana[@i][@j] #if no kana on this spot
+  else if @hk is 1 and katakana[@i][@j] != undefined
     kana.html katakana[@i][@j]
   else 
-    kana.html katakana[@i-3][@j]
+    @j = 1
+    kana.html katakana[@i][@j]#if no kana on this spot
   romaji.html sounds[@i][@j] + " "#TODO: write only one correct and 4 false. the correct must be clicked
 
   #console.log(h,k);
