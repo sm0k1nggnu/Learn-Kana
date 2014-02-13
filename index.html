@@ -16,6 +16,12 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- for Facebook -->          
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:description" content="" />
   </head>
   <body>
     <div id="fb-root"></div>
@@ -48,6 +54,9 @@
     <div class="row">
       <div id="show" class="col-md-4 col-md-offset-4">
         <h1 id="kana"></h1>
+        <div class="form-group">
+            <input type="text" length="3" maxlength="3" class="form-control answer" id="romajiAnswer" placeholder="">
+        </div>
         <h2 id="romaji"></h2>
       </div>
     </div>
@@ -76,7 +85,7 @@
     </div>
     
     <div class="footer">
-      made by David May (<a href="http://twitter.com/sm0k1nggnu">@sm0k1nggnu)</a><br>
+      made by David May (<a href="http://twitter.com/sm0k1nggnu">@sm0k1nggnu</a>) v1.1<br>
       picture by <a href="http://www.flickr.com/photos/yotut/">YoTuT</a>, some rights reserved
     </div>
 
@@ -84,6 +93,6 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.min.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

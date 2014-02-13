@@ -1,10 +1,12 @@
-var choose_row, chosen_h, chosen_k, get_kana, h, hiragana, hiraganaMenu, kana, katakana, katakanaMenu, menuButton, refresh, romaji, selected_rows, sounds, write_kana;
+var answer, checkAnswer, choose_row, chosen_h, chosen_k, get_kana, h, hiragana, hiraganaMenu, kana, katakana, katakanaMenu, menuButton, refresh, romaji, selected_rows, sounds, write_kana;
 
 kana = $("#kana");
 
 romaji = $("#romaji");
 
 refresh = $('.glyphicon-refresh');
+
+answer = $('#romajiAnswer');
 
 chosen_h = [];
 
@@ -126,20 +128,39 @@ get_kana = function(h, k) {
 
 write_kana = function(h, k) {
   get_kana(h, k);
-  console.log("i = " + this.i + " j = " + this.j);
   if (this.hk === 0 && hiragana[this.i][this.j] !== void 0) {
     kana.html(hiragana[this.i][this.j]);
-    console.log(hiragana[this.i][this.j] + " here");
+    checkAnswer(sounds[this.i][this.j], hiragana[this.i][this.j]);
   } else if (this.hk === 0 && hiragana[this.i][this.j] === void 0) {
     this.j = 1;
     kana.html(hiragana[this.i][this.j]);
+    checkAnswer(sounds[this.i][this.j], hiragana[this.i][this.j]);
   } else if (this.hk === 1 && katakana[this.i][this.j] !== void 0) {
     kana.html(katakana[this.i][this.j]);
+    checkAnswer(sounds[this.i][this.j], katakana[this.i][this.j]);
   } else {
     this.j = 1;
     kana.html(katakana[this.i][this.j]);
+    checkAnswer(sounds[this.i][this.j], katakana[this.i][this.j]);
   }
-  romaji.html(sounds[this.i][this.j] + " ");
+};
+
+checkAnswer = function(args, k) {
+  return answer.bind("keyup", function(e) {
+    var code, kanas, value;
+    code = e.keyCode || e.which;
+    value = this.value;
+    kanas = k;
+    if (code === 13) {
+      if (value === args[0]) {
+        write_kana([chosen_h], [chosen_k]);
+        romaji.html('<span data-sound="' + args[0] + '" >last: ' + kanas + " = " + args[0] + '</span>');
+      } else {
+        write_kana([chosen_h], [chosen_k]);
+        romaji.html('<span data-sound="' + args[0] + '" class="wrong-answer">wrong: ' + kanas + " = " + args[0] + '</span>');
+      }
+    }
+  });
 };
 
 menuButton.on("show.bs.collapse", function() {

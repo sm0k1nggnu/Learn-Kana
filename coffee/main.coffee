@@ -7,6 +7,7 @@
 kana = $("#kana")
 romaji = $("#romaji")
 refresh = $('.glyphicon-refresh')
+answer = $('#romajiAnswer')
 
 chosen_h = []
 chosen_k = []
@@ -445,17 +446,12 @@ get_kana = (h, k) ->
     if chosen_h[i] is 1
       result = chosen_h[i]
       hira = true
-      #console.log "Treffer in h an Position" + i
-      #break
     i++
   while j < len 
     if chosen_k[j] is 1
       result = chosen_k[j]
       kata = true
-      #console.log "Treffer in k an Position" + j
-      #break
     else
-      #console.log "Pups"
     j++
   
   if hira and kata # are both values set?	
@@ -485,22 +481,38 @@ get_kana = (h, k) ->
 write_kana = (h, k) -> 
   #get_kana gets one kana, either Hiragana or Katakana from specified rows
   get_kana h, k
-  console.log "i = " + @i + " j = " + @j
   if @hk is 0 and hiragana[@i][@j] != undefined #this check doesn't work
     kana.html hiragana[@i][@j]
-    console.log hiragana[@i][@j]  + " here"
+    checkAnswer(sounds[@i][@j], hiragana[@i][@j])
   else if @hk is 0 and hiragana[@i][@j] == undefined
 	  @j = 1
 	  kana.html hiragana[@i][@j] #if no kana on this spot
+	  checkAnswer(sounds[@i][@j], hiragana[@i][@j])
   else if @hk is 1 and katakana[@i][@j] != undefined
     kana.html katakana[@i][@j]
+    checkAnswer(sounds[@i][@j], katakana[@i][@j])
   else 
     @j = 1
     kana.html katakana[@i][@j]#if no kana on this spot
-  romaji.html sounds[@i][@j] + " "#TODO: write only one correct and 4 false. the correct must be clicked
-
-  #console.log(h,k);
+    checkAnswer(sounds[@i][@j], katakana[@i][@j])	
   return
+
+
+checkAnswer = (args, k) ->
+  answer.bind "keyup", (e) ->
+    code = e.keyCode or e.which
+    value = @value
+    kanas = k
+    if code is 13
+      if value is args[0]
+        write_kana [chosen_h], [chosen_k]
+        romaji.html '<span data-sound="' + args[0] + '" >last: ' + kanas + " = "+ args[0] + '</span>'
+      else
+        write_kana [chosen_h], [chosen_k]
+        romaji.html '<span data-sound="' + args[0] + '" class="wrong-answer">wrong: ' + kanas + " = "+ args[0] + '</span>'
+    return
+	
+
 
 menuButton.on "show.bs.collapse", ->
   $("#off-canvas-button").css "right", "320px"
