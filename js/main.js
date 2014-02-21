@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var answer, choose_row, chosen_h, chosen_k, get_kana, h, hiragana, hiraganaMenu, kana, katakana, katakanaMenu, menuButton, refresh, romaji, selected_rows, sounds, write_kana;
+  var answer, checkAnswer, choose_row, chosen_h, chosen_k, get_kana, h, hiragana, hiraganaMenu, kana, katakana, katakanaMenu, menuButton, refresh, romaji, selected_rows, sounds, write_kana;
   kana = $("#kana");
   romaji = $("#romaji");
   refresh = $('.glyphicon-refresh');
@@ -123,33 +123,29 @@ $(document).ready(function() {
       checkAnswer(sounds[this.i][this.j], katakana[this.i][this.j]);
     }
   };
-  $('romajiAnswerForm').on("submit", function(ev) {
-    var checkAnswer;
-    console.log(ev);
-    ev.preventDefault();
-    return checkAnswer = function(args, k) {
-      return answer.bind("keyup", function(e) {
-        var code, kanaAnswer, kanas, value;
-        code = e.keyCode || e.which;
-        value = args;
-        kanas = k;
-        kanaAnswer = $('#romajiAnswer').val();
-        if (code === 13 && kanaAnswer !== "") {
-          if (args === kanaAnswer) {
-            console.log("value = " + args + " = kana = " + kanaAnswer);
-            write_kana([chosen_h], [chosen_k]);
-            romaji.html("<span data-sound=\"" + args[0] + "\" >last: " + kanas + " = " + args[0] + "</span>");
-          } else {
-            console.log("value = " + args + " != kana = " + kanaAnswer);
-            write_kana([chosen_h], [chosen_k]);
-            romaji.html("<span data-sound=\"" + args[0] + "\" class=\"wrong-answer\">wrong: " + kanas + " = " + args[0] + "</span>");
-          }
+  checkAnswer = function(args, k) {
+    return answer.bind("keyup", function(e) {
+      var code, kanaAnswer, kanas, value;
+      code = e.keyCode || e.which;
+      value = args.toString;
+      kanas = k;
+      kanaAnswer = $('#romajiAnswer').val();
+      args = args.toString();
+      if (code === 13 && kanaAnswer !== "") {
+        if (args === kanaAnswer) {
+          console.log("value = " + args + " = kana = " + kanaAnswer);
+          write_kana([chosen_h], [chosen_k]);
+          romaji.html("<span data-sound=\"" + args[0] + "\" >last: " + kanas + " = " + args[0] + "</span>");
         } else {
-          0;
+          console.log("value = " + args + " != kana = " + kanaAnswer);
+          write_kana([chosen_h], [chosen_k]);
+          romaji.html("<span data-sound=\"" + args[0] + "\" class=\"wrong-answer\">wrong: " + kanas + " = " + args[0] + "</span>");
         }
-      });
-    };
-  });
+      } else {
+        0;
+      }
+    });
+  };
   menuButton.on("show.bs.collapse", function() {
     $("#off-canvas-button").css("right", "320px");
     $(".sidebar-offcanvas").css("background-color", "transparent");

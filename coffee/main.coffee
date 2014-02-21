@@ -497,30 +497,29 @@ $(document).ready ->
 	  return
 	
 	
-	$('romajiAnswerForm').on "submit", (ev) ->
-		console.log ev
-		ev.preventDefault()
-		checkAnswer = (args, k) ->
-		  answer.bind "keyup", (e) ->
-		    code = e.keyCode or e.which
-		    value = args
-		    kanas = k
-		    kanaAnswer = $('#romajiAnswer').val()
-		    #console.log "args " + value + " k " + kanas + " answer " + answer.val()
-		    if code is 13 and kanaAnswer isnt ""
-		      if args is kanaAnswer
-		        console.log "value = " + args + " = kana = " + kanaAnswer
-		        write_kana [chosen_h], [chosen_k]
-		        romaji.html "<span data-sound=\"" + args[0] + "\" >last: " + kanas + " = " + args[0] + "</span>"
-		        #answer.val ""
-		      else
-		        console.log "value = " + args + " != kana = " + kanaAnswer
-		        write_kana [chosen_h], [chosen_k]
-		        romaji.html "<span data-sound=\"" + args[0] + "\" class=\"wrong-answer\">wrong: " + kanas + " = " + args[0] + "</span>"
-		        #answer.val ""
-		    else
-		      0	
-		    return
+	 checkAnswer = (args, k) ->
+	   answer.bind "keyup", (e) ->
+	     code = e.keyCode or e.which
+	     value = args.toString
+	     kanas = k
+	     kanaAnswer = $('#romajiAnswer').val()
+	     #kanaAnswer = kanaAnswer.toString
+	     args = args.toString()
+	     #console.log "args " + value + " k " + kanas + " answer " + answer.val()
+	     if code is 13 and kanaAnswer isnt ""
+	       if args is kanaAnswer
+	         console.log "value = " + args + " = kana = " + kanaAnswer
+	         write_kana [chosen_h], [chosen_k]
+	         romaji.html "<span data-sound=\"" + args[0] + "\" >last: " + kanas + " = " + args[0] + "</span>"
+	         #answer.val ""
+	       else
+	         console.log "value = " + args + " != kana = " + kanaAnswer
+	         write_kana [chosen_h], [chosen_k]
+	         romaji.html "<span data-sound=\"" + args[0] + "\" class=\"wrong-answer\">wrong: " + kanas + " = " + args[0] + "</span>"
+	         #answer.val ""
+	     else
+	       0	
+	     return
 		
 	
 	
