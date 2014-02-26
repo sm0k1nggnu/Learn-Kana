@@ -6,7 +6,6 @@
 $(document).ready ->
 	kana = $("#kana")
 	romaji = $("#romaji")
-	refresh = $('.glyphicon-refresh')
 	answer = $('#romajiAnswer')
 	
 	chosen_h = []
@@ -538,11 +537,3 @@ $(document).ready ->
 		], [
 		  chosen_k
 		]
-		
-	refresh.on "click", ->
-		write_kana [ #make this dynamic to chosen rows
-		  chosen_h
-		], [
-		  chosen_k
-		]
-	

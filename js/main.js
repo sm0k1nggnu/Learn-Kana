@@ -1,8 +1,7 @@
 $(document).ready(function() {
-  var answer, checkAnswer, choose_row, chosen_h, chosen_k, get_kana, h, hiragana, hiraganaMenu, kana, katakana, katakanaMenu, menuButton, refresh, romaji, selected_rows, sounds, write_kana;
+  var answer, checkAnswer, choose_row, chosen_h, chosen_k, get_kana, h, hiragana, hiraganaMenu, kana, katakana, katakanaMenu, menuButton, romaji, selected_rows, sounds, write_kana;
   kana = $("#kana");
   romaji = $("#romaji");
-  refresh = $('.glyphicon-refresh');
   answer = $('#romajiAnswer');
   chosen_h = [];
   chosen_k = [];
@@ -154,8 +153,5 @@ $(document).ready(function() {
     $("#off-canvas-button").css("right", "0");
     $(".sidebar-offcanvas").css("background-color", "#000");
   });
-  write_kana([chosen_h], [chosen_k]);
-  return refresh.on("click", function() {
-    return write_kana([chosen_h], [chosen_k]);
-  });
+  return write_kana([chosen_h], [chosen_k]);
 });
