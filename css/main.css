@@ -3,9 +3,9 @@ html{
 }
 body{
 	background:url('../images/1.jpg') no-repeat center center;
-    min-height:100%;
     background-size:cover;
     min-height:100%;
+    margin-right: 15px;
 }
 #show {
 	margin-top: 100px;
@@ -24,6 +24,13 @@ body{
 }
 #romaji {
 	font-size: 30px;
+}
+.answer {
+	width: 12%;
+	margin: 0 auto;
+}
+.wrong-answer {
+	color: #a94442;
 }
 .refresh-bg {
 	background: #000;
