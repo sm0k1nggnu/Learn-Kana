@@ -77,3 +77,99 @@ $ git checkout gh-pages
 
   </body>
 </html>
+=======
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learn Hiragana and Katakana</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- for Facebook -->          
+    <meta property="og:title" content="Learn Kana online" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Learn Hiragana and Katakana online" />
+    <meta property="og:url" content="http://davidmay.de/learnkana/" />
+    <meta property="og:image" content="http://davidmay.de/learnkana/images/learnkana.png">
+  </head>
+  <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=110257969122074";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    
+    <div class="row">
+      <div class="col-md-1 col-md-offset-1">
+      </div>
+      <div class="col-md-1">
+        <script id='fbp0pn6'>(function(i){var f,s=document.getElementById(i);f=document.createElement('iframe');f.src='//api.flattr.com/button/view/?uid=Sm0K1ngGnu&url=http%3A%2F%2Fdavidmay.de/learnkana/';f.title='Flattr';f.height=62;f.width=55;f.style.borderWidth=0;s.parentNode.insertBefore(f,s);})('fbp0pn6');</script>
+      </div>
+      <div class="col-md-1">
+        <div class="fb-like" data-href="http://davidmay.de/learnkana/" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
+      </div>
+      <div class="col-md-1">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="learn hiragana and katakana" data-via="sm0k1nggnu">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div id="show" class="col-md-4 col-md-offset-4">
+        <h1 id="kana"></h1>
+        <div class="form-group">
+            <input type="text" length="3" maxlength="3" class="form-control answer" id="romajiAnswer" placeholder="" value="">
+        </div>
+        <h2 id="romaji"></h2>
+      </div>
+    </div>
+
+    <div id="off-canvas-button" class="col-xs-6 col-sm-3 sidebar-offcanvas collapse in">
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="collapse" href="#off-canvas-menu"><i class="glyphicon glyphicon-th"></i></button>
+    </div>
+    <div id="off-canvas-menu" class="collapse">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="off-canvas-menu">Which Kana do you want to learn?</h3>
+          <div class="bs-example kana-form">
+              <form id="hiragana-checkboxes" role="form">
+                              <label>Hiragana</label>
+                            <div class="checkbox"><label class="sound">a</label><label><input type="checkbox" value="0" class="hiragana-check" checked="true"></label>あいうえお</div><div class="checkbox"><label class="sound">ka</label><label><input type="checkbox" value="1" class="hiragana-check"></label>かきくけこ</div><div class="checkbox"><label class="sound">ga</label><label><input type="checkbox" value="2" class="hiragana-check"></label>がぎぐげご</div><div class="checkbox"><label class="sound">sa</label><label><input type="checkbox" value="3" class="hiragana-check"></label>さしすせそ</div><div class="checkbox"><label class="sound">za</label><label><input type="checkbox" value="4" class="hiragana-check"></label>ざじずぜぞ</div><div class="checkbox"><label class="sound">ta</label><label><input type="checkbox" value="5" class="hiragana-check"></label>たちつてと</div><div class="checkbox"><label class="sound">da</label><label><input type="checkbox" value="6" class="hiragana-check"></label>だぢづでど</div><div class="checkbox"><label class="sound">na</label><label><input type="checkbox" value="7" class="hiragana-check"></label>なにぬねの</div><div class="checkbox"><label class="sound">ha</label><label><input type="checkbox" value="8" class="hiragana-check"></label>はひふへほ</div><div class="checkbox"><label class="sound">ba</label><label><input type="checkbox" value="9" class="hiragana-check"></label>ばびぶべぼ</div><div class="checkbox"><label class="sound">pa</label><label><input type="checkbox" value="10" class="hiragana-check"></label>ぱぴぷぺぽ</div><div class="checkbox"><label class="sound">ma</label><label><input type="checkbox" value="11" class="hiragana-check"></label>まみむめも</div><div class="checkbox"><label class="sound">ya</label><label><input type="checkbox" value="12" class="hiragana-check"></label>やゆよ</div><div class="checkbox"><label class="sound">ra</label><label><input type="checkbox" value="13" class="hiragana-check"></label>らりるれろ</div><div class="checkbox"><label class="sound">wa</label><label><input type="checkbox" value="14" class="hiragana-check"></label>わを</div><div class="checkbox"><label class="sound">n</label><label><input type="checkbox" value="15" class="hiragana-check"></label>ん</div></form>
+          </div>
+          
+          <div class="bs-example kana-form">
+              <form id="katakana-checkboxes" role="form">
+                              <label>Katakana</label>
+                            <div class="checkbox"><label><input type="checkbox" value="0" class="katakana-check" checked="true"></label>アイウエオ</div><div class="checkbox"><label><input type="checkbox" value="1" class="katakana-check"></label>カキクケコ</div><div class="checkbox"><label><input type="checkbox" value="2" class="katakana-check"></label>ガギグゲゴ</div><div class="checkbox"><label><input type="checkbox" value="3" class="katakana-check"></label>サシスセソ</div><div class="checkbox"><label><input type="checkbox" value="4" class="katakana-check"></label>ザジズゼゾ</div><div class="checkbox"><label><input type="checkbox" value="5" class="katakana-check"></label>タチツテト</div><div class="checkbox"><label><input type="checkbox" value="6" class="katakana-check"></label>ダヂヅデドゾ</div><div class="checkbox"><label><input type="checkbox" value="7" class="katakana-check"></label>ナニヌネノ</div><div class="checkbox"><label><input type="checkbox" value="8" class="katakana-check"></label>ハヒフヘホ</div><div class="checkbox"><label><input type="checkbox" value="9" class="katakana-check"></label>バビブベボ</div><div class="checkbox"><label><input type="checkbox" value="10" class="katakana-check"></label>パピプペポ</div><div class="checkbox"><label><input type="checkbox" value="11" class="katakana-check"></label>マミムメモ</div><div class="checkbox"><label><input type="checkbox" value="12" href="../heroku/learnkana/public/index.html" title="index" class="katakana-check"></label>ヤユヨ</div><div class="checkbox"><label><input type="checkbox" value="13" class="katakana-check"></label>ラリルレロ</div><div class="checkbox"><label><input type="checkbox" value="14" class="katakana-check"></label>ワヲ</div><div class="checkbox"><label><input type="checkbox" value="15" class="katakana-check"></label>ン</div></form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      made by David May (<a href="http://twitter.com/sm0k1nggnu">@sm0k1nggnu</a>) v1.1<br>
+      picture by <a href="http://www.flickr.com/photos/yotut/">YoTuT</a>, some rights reserved
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.min.js"></script>
+  </body>
+</html>
+>>>>>>> master
